@@ -1,4 +1,4 @@
-# Getting and Cleaning Data Course Project
+## Getting and Cleaning Data Course Project
 
 The purpose of this project is to create R script that does the following :
   1) Merges the training and the test sets to create one data set
@@ -16,3 +16,11 @@ http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartpho
 Here are the data for the project:
 
 [https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip]
+
+### Steps 
+
+Just source("run_analysis.R") and it will download the datas and  will generate a new file TidySet.txt in your working directory.
+
+### dependencies
+
+it depends on the libarary dplyr.
