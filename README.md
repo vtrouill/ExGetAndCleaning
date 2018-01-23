@@ -21,6 +21,6 @@ Here are the data for the project:
 
 Just source("run_analysis.R") and it will download the datas and  will generate a new file TidySet.txt in your working directory.
 
-### dependencies
+### Dependencies
 
-it depends on the libarary dplyr.
+it depends on the library dplyr.
