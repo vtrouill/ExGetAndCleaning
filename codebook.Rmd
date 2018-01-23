@@ -1,55 +1,77 @@
+---
+title: "codebook for getting an cleaning data project"
+author: "vincent trouillet"
+date: "23/01/2018"
+output: html_document
+---
 
-## Get the the data if necessary ##
-if (!file.exists('./data.zip')) {
-  download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip","data.zip")
-  unzip("data.zip")
-}
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
-# retrieve train set, test set, subject (all necessary files for merging all data)
-X_train <- read.table("./UCI HAR Dataset/train/X_train.txt")
-Y_train <- read.table("./UCI HAR Dataset/train/y_train.txt")
-X_test <- read.table("./UCI HAR Dataset/test/X_test.txt")
-Y_test <- read.table("./UCI HAR Dataset/test/y_test.txt")
-Train_subject<-read.table("./UCI HAR Dataset/train/subject_train.txt")
-Test_subject<-read.table("./UCI HAR Dataset/test/subject_test.txt")
+## Original Datasets
 
-## 1) Merge training and test set to make one set of data ##
-# X_Merge       : rbind(X_train,X_test)
-# Y_Merge       : rbind(Y_train,Y_test)
-# Subject_merge : rbind(Train_subject,Test_subject)
+The original datas are retrieve from this url : https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+A full description is available at the site where the data was obtained here:http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
 
+
+
+```{r X_train, echo=FALSE}
+str(X_train)
+```
+
+## 1) Merge training and test set to make one set of data
+```{r, eval=FALSE}
 data_set<-cbind(rbind(Train_subject,Test_subject),rbind(Y_train,Y_test),rbind(X_train,X_test))
+```
+
+After the merge the data (data_set) are made of 10299 obs. of 563 variables 
 
 ## 2) Extracts only the measurements on the mean and standard deviation for each measurement.
+```{r, eval=FALSE}
 Feature <- read.table("./UCI HAR Dataset/features.txt", stringsAsFactors = FALSE)[,2]
+```
+```{r Feature, echo=FALSE}
+str(Feature)
+```
 
+```{r, eval=FALSE}
 feature_idx <- grep(("mean\\(\\)|std\\(\\)"), Feature)
 Mean_Std_set <- data_set[, c(1, 2, feature_idx+2)]
 colnames(Mean_Std_set) <- c("Subject", "Activity", Feature[feature_idx])
+```
+
+The resulting data Mean_Std_se is a data frame of 10299 obs  of 68 variables
 
 ## 3)  Uses descriptive activity names to name the activities in the data set
-Activity_names <- read.table("./UCI HAR Dataset/activity_labels.txt")
 
+```{r, eval=FALSE}
+Activity_names <- read.table("./UCI HAR Dataset/activity_labels.txt")
+```
+
+```{r Activity_names, echo=FALSE}
+str(Feature)
+```
+
+```{r, eval=FALSE}
 for (i in 1:6){
   Mean_Std_set$Activity[Mean_Std_set$Activity == i] <- as.character(Activity_names[i,2])
 }
-
-
+```
 ## 4) appropriately labels the data set with descriptive variable names
-
+```{r, eval=FALSE}
 names(Mean_Std_set) <- gsub("\\()", "", names(Mean_Std_set))
 names(Mean_Std_set) <- gsub("^t", "time", names(Mean_Std_set))
 names(Mean_Std_set) <- gsub("^f", "frequence", names(Mean_Std_set))
 names(Mean_Std_set) <- gsub("-mean", "Mean", names(Mean_Std_set))
 names(Mean_Std_set) <- gsub("-std", "Std", names(Mean_Std_set))
 names(Mean_Std_set) <- gsub("BodyBody", "Body", names(Mean_Std_set))
-
+```
 ## 5) From the data set in step 4, creates a second, independent tidy data set 
 ##    with the average of each variable for each activity and each subject
+```{r, eval=FALSE}
 library(dplyr)
 Tidy_finalSet <- Mean_Std_set %>% group_by(Subject, Activity) %>% summarise_all(.funs = c(mean="mean"))
 
 write.table(Tidy_finalSet, "./TidySet.txt", row.names = FALSE)
-
-## END generate html codebook
-rmarkdown::render("codebook.rmd")
+```
