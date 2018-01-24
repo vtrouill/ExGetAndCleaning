@@ -34,7 +34,7 @@ A group of 30 volunteers performed 6 different activities (WALKING, WALKING_UPST
 
  * all the files containing the raw datas and present in the Inertial Signals folders are not necessary for the present project and were not used.
  
- ### retrieving the useful data
+### Retrieving the useful data
 ```{r, eval=FALSE}
 X_train <- read.table("./UCI HAR Dataset/train/X_train.txt")
 Y_train <- read.table("./UCI HAR Dataset/train/y_train.txt")

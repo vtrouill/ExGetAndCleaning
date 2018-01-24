@@ -39,7 +39,7 @@ The smartphone captured various data about their movements.
     Signals folders are not necessary for the present project and were
     not used.
 
-\#\#\# retrieving the useful data
+### Retrieving the useful data
 
     X_train <- read.table("./UCI HAR Dataset/train/X_train.txt")
     Y_train <- read.table("./UCI HAR Dataset/train/y_train.txt")
