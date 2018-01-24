@@ -43,9 +43,18 @@ Y_test <- read.table("./UCI HAR Dataset/test/y_test.txt")
 Train_subject<-read.table("./UCI HAR Dataset/train/subject_train.txt")
 Test_subject<-read.table("./UCI HAR Dataset/test/subject_test.txt")
 ```
-example of one file containing the features
-```{r X_train, echo=FALSE}
-str(X_train)
+
+example of one file containing the subjects id
+```{r Subjects, echo=FALSE}
+str(Test_subject)
+```
+example of one the file containing the activities id
+```{r Activities, echo=FALSE}
+str(Y_test)
+```
+example of one file containing the features value
+```{r FeatureValue, echo=FALSE}
+str(Y_train)
 ```
 
 ## 1) Merge training and test set to make one set of data
