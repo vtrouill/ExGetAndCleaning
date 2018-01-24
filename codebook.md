@@ -67,8 +67,8 @@ sample of one file containing the features value
     ## 4 0.2702982 -0.03261387 -0.11752018 -0.9947428 -0.9732676
     ## 5 0.2748330 -0.02784779 -0.12952716 -0.9938525 -0.9674455
 
-1) Merge training and test set to make one set of data
-------------------------------------------------------
+Merge training and test set to make one set of data
+---------------------------------------------------
 
 Bind the rows containing the subject (Train\_subject,Test\_subject)
 
@@ -91,8 +91,8 @@ Finaly bind the column together
 After the merge the data set is made of 10299 obs. of 563 variables
 (subject, activity and features)
 
-2) Extracts only the measurements on the mean and standard deviation for each measurement.
-------------------------------------------------------------------------------------------
+Extracts only the measurements on the mean and standard deviation for each measurement.
+---------------------------------------------------------------------------------------
 
     Feature <- read.table("./UCI HAR Dataset/features.txt", stringsAsFactors = FALSE)[,2]
 
@@ -105,8 +105,8 @@ After the merge the data set is made of 10299 obs. of 563 variables
 The resulting data Mean\_Std\_se is a data frame of 10299 obs of 68
 variables
 
-3) Uses descriptive activity names to name the activities in the data set
--------------------------------------------------------------------------
+Uses descriptive activity names to name the activities in the data set
+----------------------------------------------------------------------
 
     Activity_names <- read.table("./UCI HAR Dataset/activity_labels.txt")
 
@@ -129,8 +129,8 @@ variables
     ## 4                  -0.1232826
     ## 5                  -0.1153619
 
-4) appropriately labels the data set with descriptive variable names
---------------------------------------------------------------------
+Appropriately labels the data set with descriptive variable names
+-----------------------------------------------------------------
 
     names(Mean_Std_set) <- gsub("\\()", "", names(Mean_Std_set))
     names(Mean_Std_set) <- gsub("^t", "time", names(Mean_Std_set))
@@ -152,8 +152,8 @@ variables
     ## 4                  -0.1232826
     ## 5                  -0.1153619
 
-5) From the data set in step 4, creates a second, independent tidy data set
----------------------------------------------------------------------------
+From the data set in step 4, creates a second, independent tidy data set
+------------------------------------------------------------------------
 
 with the average of each variable for each activity and each subject
 --------------------------------------------------------------------

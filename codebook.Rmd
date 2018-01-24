@@ -57,7 +57,7 @@ sample of one file containing the features value
 X_test[1:5, 1:5]
 ```
 
-## 1) Merge training and test set to make one set of data
+## Merge training and test set to make one set of data
 
 Bind the rows containing the subject (Train_subject,Test_subject)
 
@@ -75,7 +75,7 @@ data_set[1:5, 1:5]
 ```
 After the merge the data set is made of 10299 obs. of 563 variables (subject, activity and features)
 
-## 2) Extracts only the measurements on the mean and standard deviation for each measurement.
+## Extracts only the measurements on the mean and standard deviation for each measurement.
 ```{r, eval=FALSE}
 Feature <- read.table("./UCI HAR Dataset/features.txt", stringsAsFactors = FALSE)[,2]
 ```
@@ -91,7 +91,7 @@ colnames(Mean_Std_set) <- c("Subject", "Activity", Feature[feature_idx])
 
 The resulting data Mean_Std_se is a data frame of 10299 obs  of 68 variables
 
-## 3)  Uses descriptive activity names to name the activities in the data set
+## Uses descriptive activity names to name the activities in the data set
 
 ```{r, eval=FALSE}
 Activity_names <- read.table("./UCI HAR Dataset/activity_labels.txt")
@@ -111,7 +111,7 @@ for (i in 1:6){
 Mean_Std_set[1:5, 1:5]
 ```
 
-## 4) appropriately labels the data set with descriptive variable names
+## Appropriately labels the data set with descriptive variable names
 ```{r, eval=FALSE}
 names(Mean_Std_set) <- gsub("\\()", "", names(Mean_Std_set))
 names(Mean_Std_set) <- gsub("^t", "time", names(Mean_Std_set))
@@ -124,7 +124,7 @@ names(Mean_Std_set) <- gsub("BodyBody", "Body", names(Mean_Std_set))
 ```{r label, echo=FALSE}
 Mean_Std_set[1:5, 1:5]
 ```
-## 5) From the data set in step 4, creates a second, independent tidy data set 
+##  From the data set in step 4, creates a second, independent tidy data set 
 ##    with the average of each variable for each activity and each subject
 ```{r, eval=FALSE}
 library(dplyr)
