@@ -19,7 +19,7 @@ Here are the data for the project:
 
 ### Steps 
 
-Just source("run_analysis.R") and it will download the datas and  will generate a new file TidySet.txt in your working directory. At the end, a codebook in html is generated from codebook.rmd present in the directory.
+Just source("run_analysis.R") and it will download the datas and  will generate a new file TidySet.txt in your working directory. At the end, a codebook in .md is generated from codebook.rmd present in the directory.
 
 ### Dependencies
 

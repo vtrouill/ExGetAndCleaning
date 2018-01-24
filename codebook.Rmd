@@ -2,7 +2,7 @@
 title: "codebook for getting an cleaning data project"
 author: "vincent trouillet"
 date: "23/01/2018"
-output: html_document
+output: md_document
 ---
 
 ```{r setup, include=FALSE}
@@ -52,9 +52,9 @@ example of one the file containing the activities id
 ```{r Activities, echo=FALSE}
 str(Y_test)
 ```
-example of one file containing the features value
+sample of one file containing the features value
 ```{r FeatureValue, echo=FALSE}
-str(Y_train)
+X_test[1:5, 1:5]
 ```
 
 ## 1) Merge training and test set to make one set of data
@@ -70,7 +70,9 @@ Finaly bind the column together
 ```{r, eval=FALSE}
 data_set<-cbind(rbind(Train_subject,Test_subject),rbind(Y_train,Y_test),rbind(X_train,X_test))
 ```
-
+```{r merge, echo=FALSE}
+data_set[1:5, 1:5]
+```
 After the merge the data set is made of 10299 obs. of 563 variables (subject, activity and features)
 
 ## 2) Extracts only the measurements on the mean and standard deviation for each measurement.
@@ -104,6 +106,11 @@ for (i in 1:6){
   Mean_Std_set$Activity[Mean_Std_set$Activity == i] <- as.character(Activity_names[i,2])
 }
 ```
+
+```{r meanstd, echo=FALSE}
+Mean_Std_set[1:5, 1:5]
+```
+
 ## 4) appropriately labels the data set with descriptive variable names
 ```{r, eval=FALSE}
 names(Mean_Std_set) <- gsub("\\()", "", names(Mean_Std_set))
@@ -113,11 +120,21 @@ names(Mean_Std_set) <- gsub("-mean", "Mean", names(Mean_Std_set))
 names(Mean_Std_set) <- gsub("-std", "Std", names(Mean_Std_set))
 names(Mean_Std_set) <- gsub("BodyBody", "Body", names(Mean_Std_set))
 ```
+
+```{r label, echo=FALSE}
+Mean_Std_set[1:5, 1:5]
+```
 ## 5) From the data set in step 4, creates a second, independent tidy data set 
 ##    with the average of each variable for each activity and each subject
 ```{r, eval=FALSE}
 library(dplyr)
 Tidy_finalSet <- Mean_Std_set %>% group_by(Subject, Activity) %>% summarise_all(.funs = c(mean="mean"))
+```
 
+```{r tidyset, echo=FALSE}
+Tidy_finalSet[1:5, 1:5]
+```
+
+```{r, eval=FALSE}
 write.table(Tidy_finalSet, "./TidySet.txt", row.names = FALSE)
 ```
