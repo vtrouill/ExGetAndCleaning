@@ -43,6 +43,9 @@ names(Mean_Std_set) <- gsub("^f", "frequence", names(Mean_Std_set))
 names(Mean_Std_set) <- gsub("-mean", "Mean", names(Mean_Std_set))
 names(Mean_Std_set) <- gsub("-std", "Std", names(Mean_Std_set))
 names(Mean_Std_set) <- gsub("BodyBody", "Body", names(Mean_Std_set))
+names(Mean_Std_set) <- gsub("Acc", "Accelerometer", names(Mean_Std_set))
+names(Mean_Std_set) <- gsub("Gyro", "Gyroscope", names(Mean_Std_set))
+names(Mean_Std_set) <- gsub("Mag", "Magnitude", names(Mean_Std_set))
 
 ## 5) From the data set in step 4, creates a second, independent tidy data set 
 ##    with the average of each variable for each activity and each subject
