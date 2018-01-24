@@ -14,18 +14,55 @@ knitr::opts_chunk$set(echo = TRUE)
 The original datas are retrieve from this url : https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 A full description is available at the site where the data was obtained here:http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
 
+### Overview
 
+A group of 30 volunteers performed 6 different activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) while wearing a smartphone. Using its embedded accelerometer and gyroscope, The smartphone captured various data about their movements.
 
+### Files containing in the zip
+
+* _features.txt_: Names of the 561 features.
+* _activity_labels.txt_: Names and IDs for each of the 6 activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING).
+* _subject_train.txt_: A vector of 7352 integers, denoting the ID of the volunteer related to each of the observations in X_train.txt.
+* _X_train.tx_t_: 7352 observations of the 561 features, for 21 of the 30 volunteers.
+* _y_train.txt_: A vector of 7352 integers, denoting the ID of the activity related to each of the observations in X_train.txt.
+* _subject_test.txt_: A vector of 2947 integers, denoting the ID of the volunteer related to each of the observations in X_test.txt.
+* _X_test.txt_: 2947 observations of the 561 features, for 9 of the 30 volunteers.
+* _y_test.txt_: A vector of 2947 integers, denoting the ID of the activity related to each of the observations in X_test.txt.
+
+* _README.txt_ : General informations file
+* _features_info.tx_ : More informations about the features.
+
+ * all the files containing the raw datas and present in the Inertial Signals folders are not necessary for the present project and were not used.
+ 
+ ### retrieving the useful data
+```{r, eval=FALSE}
+X_train <- read.table("./UCI HAR Dataset/train/X_train.txt")
+Y_train <- read.table("./UCI HAR Dataset/train/y_train.txt")
+X_test <- read.table("./UCI HAR Dataset/test/X_test.txt")
+Y_test <- read.table("./UCI HAR Dataset/test/y_test.txt")
+Train_subject<-read.table("./UCI HAR Dataset/train/subject_train.txt")
+Test_subject<-read.table("./UCI HAR Dataset/test/subject_test.txt")
+```
+example of one file containing the features
 ```{r X_train, echo=FALSE}
 str(X_train)
 ```
 
 ## 1) Merge training and test set to make one set of data
+
+Bind the rows containing the subject (Train_subject,Test_subject)
+
+Bind the rows containing the id of the activities related to the observations (Y_train,Y_test)
+
+Bind the rows containing the features (X_train,X_test)
+
+Finaly bind the column together 
+
 ```{r, eval=FALSE}
 data_set<-cbind(rbind(Train_subject,Test_subject),rbind(Y_train,Y_test),rbind(X_train,X_test))
 ```
 
-After the merge the data (data_set) are made of 10299 obs. of 563 variables 
+After the merge the data set is made of 10299 obs. of 563 variables (subject, activity and features)
 
 ## 2) Extracts only the measurements on the mean and standard deviation for each measurement.
 ```{r, eval=FALSE}
